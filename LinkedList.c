@@ -116,9 +116,7 @@ void removeNode(List** list, Element index)
 
 	if (current != NULL)
 	{
-		Node* next = current->next;
-
-		previous->next = next;
+		previous->next = current->next;
 		next->previous = previous;
 
 		free(current);
