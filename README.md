@@ -8,4 +8,4 @@ This is the repository of Data Structures written by C.
 3. [Queue](./Queue.c)
 4. [Tree](./Tree.c)
 5. [Binary Expression Tree](./BinaryExpressionTree/src)
-6. [Dictionary](./dicionary.c)
+6. [Dictionary](./dictionary.c)
