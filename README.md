@@ -9,3 +9,4 @@ This is the repository of Data Structures written by C.
 4. [Tree](./Tree.c)
 5. [Binary Expression Tree](./BinaryExpressionTree/src)
 6. [Dictionary](./dictionary.c)
+7. [Binary Search Tree](./BST.c)
