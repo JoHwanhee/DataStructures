@@ -147,6 +147,12 @@ void put(struct HashTable* table, char* key, char* value)
             return;
         }
 
+        if (equals(current->key, key))
+        {
+            current->value = value;
+            return;
+        }
+
         while (current->next)
         {
             if(equals(current->key, key))
@@ -175,9 +181,9 @@ int main(void)
     printf("%s \n", get(table, "Hwanhee"));
     printf("%s \n", get(table, "Hwanhee2"));
     
-    put(table, "Hwanhee2", "Hwanhee is a good person.");
+    put(table, "Hwanhee", "Hwanhee is a good person.");
 
-    printf("%s \n", get(table, "Hwanhee2"));
+    printf("%s \n", get(table, "Hwanhee"));
     printf("%s \n", get(table, "Hwanhef"));
 
     getchar();
