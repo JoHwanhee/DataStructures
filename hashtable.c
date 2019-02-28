@@ -1,39 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define HASH_NUMBER 100
+#define BUSKET_NUMBER 100
 
-struct Node
+struct Entry
 {
     char* key;
     char* value;
-
-    struct Node* next;
+    unsigned long long int valueHashCode;
+    struct Entry* next;
 };
 
 struct HashTable
 {
-    struct Node** values;
+    struct Entry** buskets;
 };
 
 struct HashTable* createHashTable()
 {
     struct HashTable* table = (struct HashTable*)malloc(sizeof(struct HashTable));
-    table->values = (struct Node**)malloc(sizeof(struct Node*) * HASH_NUMBER);
+    table->buskets = (struct Entry**)malloc(sizeof(struct Entry*) * BUSKET_NUMBER);
 
-    for(int i = 0; i < HASH_NUMBER; i++)
+    for(int i = 0; i < BUSKET_NUMBER; i++)
     {
-        table->values[i] = NULL;
+        table->buskets[i] = NULL;
     }
 
     return table;
 }
 
-struct Node* createNode(char* key, char* value)
+struct Entry* createEntry(char* key, char* value)
 {
-    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    struct Entry* node = (struct Entry*)malloc(sizeof(struct Entry));
     node->key = key;
     node->value = value;
     node->next = NULL;
+    node->valueHashCode= 0;
 
     return node;
 }
@@ -71,9 +72,9 @@ unsigned int equals(char* str1, char* str2)
     return 1;
 }
 
-struct Node* moveToTail(struct Node* node)
+struct Entry* moveToTail(struct Entry* node)
 {
-    struct Node* current = node;
+    struct Entry* current = node;
 
     while (current)
     {
@@ -83,9 +84,9 @@ struct Node* moveToTail(struct Node* node)
     return current;
 }
 
-struct Node* find(struct Node* node, char* key)
+struct Entry* find(struct Entry* node, char* key)
 {
-    struct Node* current = node;
+    struct Entry* current = node;
 
     while (current)
     {
@@ -103,20 +104,21 @@ struct Node* find(struct Node* node, char* key)
 
 int hash(int code)
 {
-    return code % HASH_NUMBER;
+    return code % BUSKET_NUMBER;
 }
 
 char* get(struct HashTable* table, char* key)
 {
     unsigned int code = getHashcode(key);
+    
     unsigned int index = hash(code);
 
-    if (table->values[index] == NULL)
+    if (table->buskets[index] == NULL)
     {
         return NULL;
     }
 
-    struct Node* found = find(table->values[index], key);
+    struct Entry* found = find(table->buskets[index], key);
     if (found == NULL)
     {
         return NULL;
@@ -129,17 +131,18 @@ void put(struct HashTable* table, char* key, char* value)
 {
     unsigned int code = getHashcode(key);
     unsigned int index = hash(code);
-    struct Node* node = createNode(key, value);
+    unsigned long long int valueHashCode = getHashcode(value);
+    struct Entry* node = createEntry(key, value);
 
     printf("%s hash : [%d] index : %d \n", key, code, index);
 
-    if(table->values[index] == NULL)
+    if(table->buskets[index] == NULL)
     {
-        table->values[index] = node;
+        table->buskets[index] = node;
     }
     else
     {
-        struct Node* current = table->values[index];
+        struct Entry* current = table->buskets[index];
 
         if(current == NULL)
         {
