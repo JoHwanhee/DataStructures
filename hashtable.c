@@ -6,7 +6,6 @@ struct Entry
 {
     char* key;
     char* value;
-    unsigned long long int valueHashCode;
     struct Entry* next;
 };
 
@@ -131,7 +130,6 @@ void put(struct HashTable* table, char* key, char* value)
 {
     unsigned int code = getHashcode(key);
     unsigned int index = hash(code);
-    unsigned long long int valueHashCode = getHashcode(value);
     struct Entry* node = createEntry(key, value);
 
     printf("%s hash : [%d] index : %d \n", key, code, index);
