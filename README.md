@@ -11,4 +11,4 @@ This is the repository of Data Structures written by C.
 6. [Dictionary without hash](./dictionary.c)
 7. [Binary Search Tree](./BST.c)
 8. [Hash Table](./hashtable.c)
-9. [Graph)(./graph.c)
+9. [Graph](./graph.c)
